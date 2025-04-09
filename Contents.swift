@@ -61,3 +61,11 @@ let stringsUppercased = myMap(strings, \.localizedUppercase) // only properties 
 print(stringLengths)
 print(stringsUppercased)
 
+func checkIfEqual<T: Equatable>(_ first: T, _ second: T) -> Bool {
+    first == second
+}
+
+print(checkIfEqual(1, 1))
+print(checkIfEqual("a string", "a string"))
+print(checkIfEqual("a string", "a different string"))
+//print(checkIfEqual(intStack, doubledStack)) // Compile error: Stack does not conform to Equatable
