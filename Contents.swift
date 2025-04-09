@@ -12,15 +12,30 @@ struct Stack<Element> {
         
         return items.removeLast()
     }
+    
+    func map<U>(_ txform: (Element) -> U) -> Stack<U> {
+        var mappedItems = [U]()
+        
+        for item in items {
+            mappedItems.append(txform(item))
+        }
+        
+        return Stack<U>(items: mappedItems)
+    }
 }
 
 var intStack = Stack<Int>()
 intStack.push(1)
 intStack.push(2)
 
+var doubledStack = intStack.map { $0 * 2 }
+
 print(String(describing: intStack.pop()))
 print(String(describing: intStack.pop()))
 print(String(describing: intStack.pop()))
+
+print(String(describing: doubledStack.pop()))
+print(String(describing: doubledStack.pop()))
 
 var stringStack = Stack<String>()
 stringStack.push("hello")
@@ -41,5 +56,8 @@ func myMap<T, U>(_ items: [T], _ txform: (T) -> (U)) -> [U] {
 let strings = ["one", "two", "three"]
 //let stringLengths = myMap(strings) { $0.count  }
 let stringLengths = myMap(strings, \.count)
+let stringsUppercased = myMap(strings, \.localizedUppercase) // only properties are allowed with key-paths
 
 print(stringLengths)
+print(stringsUppercased)
+
