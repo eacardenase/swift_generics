@@ -69,3 +69,14 @@ print(checkIfEqual(1, 1))
 print(checkIfEqual("a string", "a string"))
 print(checkIfEqual("a string", "a different string"))
 //print(checkIfEqual(intStack, doubledStack)) // Compile error: Stack does not conform to Equatable
+
+func checkIfDescriptionMatch<T: CustomStringConvertible, U: CustomStringConvertible>(
+    _ first: T, _ second: U
+) -> Bool {
+    first.description == second.description
+}
+
+print(checkIfDescriptionMatch(Int(1), UInt(1)))
+print(checkIfDescriptionMatch(1, 1.0))
+print(checkIfDescriptionMatch(2, 2))
+print(checkIfDescriptionMatch(Float(1.0), Double(1.0)))
