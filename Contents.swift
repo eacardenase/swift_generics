@@ -1,12 +1,20 @@
 import Cocoa
 
+//struct StackIterator<T>: IteratorProtocol {
+//    typealias Element = T
+//    
+//    var stack: Stack<T>
+//    
+//    mutating func next() -> Element? {
+//        return stack.pop()
+//    }
+//}
+
 struct StackIterator<T>: IteratorProtocol {
-    typealias Element = T
-    
     var stack: Stack<T>
     
     mutating func next() -> T? {
-        return stack.pop()
+        stack.pop()
     }
 }
 
@@ -101,3 +109,4 @@ var myStackIterator = StackIterator(stack: myStack)
 while let value = myStackIterator.next() {
     print(value)
 }
+
