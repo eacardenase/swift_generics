@@ -41,8 +41,14 @@ struct Stack<Element>: Sequence {
         return Stack<U>(items: mappedItems)
     }
     
-    func makeIterator() -> some IteratorProtocol {
+    func makeIterator() -> StackIterator<Element> {
         StackIterator(stack: self)
+    }
+    
+    mutating func pushAll<S: Sequence>(_ sequence: S) where S.Element == Element {
+        for item in sequence {
+            self.push(item)
+        }
     }
 }
 
@@ -114,10 +120,25 @@ while let value = myStackIterator.next() {
     print("got \(value)")
 }
 
-print(myStack)
+//print(myStack)
 
 for value in myStack {
     print("for-in loop: got \(value)")
 }
 
-print(myStack) // Stack<Int>(items: [10, 20, 30])
+//print(myStack) // Stack<Int>(items: [10, 20, 30])
+
+myStack.pushAll([1, 2, 3])
+
+for value in myStack {
+    print("after pushing: got: \(value)")
+}
+
+var myOtherStack = Stack<Int>()
+myOtherStack.pushAll([1, 2, 3])
+
+myStack.pushAll(myOtherStack)
+
+for value in myStack {
+    print("after pushing items onto stack: got \(value)")
+}
