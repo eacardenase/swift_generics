@@ -18,7 +18,7 @@ struct StackIterator<T>: IteratorProtocol {
     }
 }
 
-struct Stack<Element> {
+struct Stack<Element>: Sequence {
     var items = [Element]()
     
     mutating func push(_ newItem: Element) {
@@ -39,6 +39,10 @@ struct Stack<Element> {
         }
         
         return Stack<U>(items: mappedItems)
+    }
+    
+    func makeIterator() -> some IteratorProtocol {
+        StackIterator(stack: self)
     }
 }
 
@@ -107,6 +111,13 @@ myStack.push(30)
 var myStackIterator = StackIterator(stack: myStack)
 
 while let value = myStackIterator.next() {
-    print(value)
+    print("got \(value)")
 }
 
+print(myStack)
+
+for value in myStack {
+    print("for-in loop: got \(value)")
+}
+
+print(myStack) // Stack<Int>(items: [10, 20, 30])
