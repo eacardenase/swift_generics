@@ -142,3 +142,21 @@ myStack.pushAll(myOtherStack)
 for value in myStack {
     print("after pushing items onto stack: got \(value)")
 }
+
+// Protocols with associated type as type via the use of any keyword
+
+func printElements(from sequence: any Sequence) {
+    for item in sequence {
+        print(item)
+    }
+}
+
+let mySequence: any Sequence
+
+// Protocol with associated type as eneric type constraint
+
+func printElements<S: Sequence>(from sequence: S) {
+    for element in sequence {
+        print(element)
+    }
+}
