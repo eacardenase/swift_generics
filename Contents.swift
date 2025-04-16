@@ -160,3 +160,63 @@ func printElements<S: Sequence>(from sequence: S) {
         print(element)
     }
 }
+
+let blankSpace = repeatElement("\n", count: 10).joined()
+
+print(blankSpace)
+
+protocol Food {
+    var menuListing: String { get }
+}
+
+struct Bread: Food {
+    var kind = "sourdough"
+    var menuListing: String {
+        "\(kind) bread"
+    }
+}
+
+func eat<T: Food>(_ food: T) {
+    print("I sure love \(food.menuListing)")
+}
+
+// Why not a good old protocol as parameter?
+//func eat(_ food: Food) {
+//    print("I sure love \(food.menuListing)")
+//}
+
+eat(Bread())
+
+//let composedType: [[String:Int]] = []
+//let composedType: Array<Dictionary<String,Int>> = []
+
+struct Restaurant {
+    struct SlicedFood<Ingredient: Food>: Food {
+        var food: Ingredient
+        var menuListing: String {
+            "a slice of \(food.menuListing)"
+        }
+    }
+    
+    struct CookedFood<Ingredient: Food>: Food {
+        var food: Ingredient
+        var menuListing: String {
+            "\(food.menuListing), cooked to perfection"
+        }
+    }
+    
+    func makeSlicedBread() -> SlicedFood<Bread> {
+        SlicedFood(food: Bread())
+    }
+    
+    func makeToast() -> CookedFood<SlicedFood<Bread>> {
+        let slicedBread = SlicedFood(food: Bread())
+        
+        return CookedFood(food: slicedBread)
+    }
+}
+
+let restaurant = Restaurant()
+let toast = restaurant.makeToast()
+
+eat(toast)
