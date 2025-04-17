@@ -191,25 +191,41 @@ eat(Bread())
 //let composedType: Array<Dictionary<String,Int>> = []
 
 struct Restaurant {
-    struct SlicedFood<Ingredient: Food>: Food {
+    private struct SlicedFood<Ingredient: Food>: Food {
         var food: Ingredient
         var menuListing: String {
             "a slice of \(food.menuListing)"
         }
     }
     
-    struct CookedFood<Ingredient: Food>: Food {
+    private struct CookedFood<Ingredient: Food>: Food {
         var food: Ingredient
         var menuListing: String {
-            "\(food.menuListing), cooked to perfection"
+            "\(food.menuListing), cooked to perfection."
         }
     }
     
-    func makeSlicedBread() -> SlicedFood<Bread> {
+//    func makeSlicedBread() -> SlicedFood<Bread> {
+//        SlicedFood(food: Bread())
+//    }
+    
+    func makeSlicedBread() -> Food {
         SlicedFood(food: Bread())
     }
     
-    func makeToast() -> CookedFood<SlicedFood<Bread>> {
+//    func makeToast() -> CookedFood<SlicedFood<Bread>> {
+//        let slicedBread = SlicedFood(food: Bread())
+//        
+//        return CookedFood(food: slicedBread)
+//    }
+    
+//    func makeToast() -> SlicedFood<CookedFood<Bread>> {
+//        let cookedBread = CookedFood(food: Bread())
+//        
+//        return SlicedFood(food: cookedBread)
+//    }
+    
+    func makeToast() -> Food {
         let slicedBread = SlicedFood(food: Bread())
         
         return CookedFood(food: slicedBread)
