@@ -209,7 +209,7 @@ struct Restaurant {
 //        SlicedFood(food: Bread())
 //    }
     
-    func makeSlicedBread() -> Food {
+    func makeSlicedBread() -> some Food {
         SlicedFood(food: Bread())
     }
     
@@ -225,7 +225,7 @@ struct Restaurant {
 //        return SlicedFood(food: cookedBread)
 //    }
     
-    func makeToast() -> Food {
+    func makeToast() -> some Food {
         let slicedBread = SlicedFood(food: Bread())
         
         return CookedFood(food: slicedBread)
