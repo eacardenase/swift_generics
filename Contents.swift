@@ -41,6 +41,16 @@ struct Stack<Element>: Sequence {
         return Stack<U>(items: mappedItems)
     }
     
+    func filter(_ f: (Element) -> Bool) -> Stack<Element> {
+        var filteredItems = [Element]()
+        
+        for item in items where f(item) {
+            filteredItems.append(item)
+        }
+        
+        return Stack<Element>(items: filteredItems)
+    }
+    
     func makeIterator() -> StackIterator<Element> {
         StackIterator(stack: self)
     }
@@ -55,8 +65,13 @@ struct Stack<Element>: Sequence {
 var intStack = Stack<Int>()
 intStack.push(1)
 intStack.push(2)
+intStack.push(3)
+intStack.push(4)
+intStack.push(5)
+intStack.push(6)
 
 var doubledStack = intStack.map { $0 * 2 }
+var filteredStack = intStack.filter { $0 % 2 == 0 }
 
 //print(String(describing: intStack.pop()))
 //print(String(describing: intStack.pop()))
@@ -64,6 +79,9 @@ var doubledStack = intStack.map { $0 * 2 }
 //
 //print(String(describing: doubledStack.pop()))
 //print(String(describing: doubledStack.pop()))
+
+print(intStack)
+print(filteredStack)
 
 var stringStack = Stack<String>()
 stringStack.push("hello")
