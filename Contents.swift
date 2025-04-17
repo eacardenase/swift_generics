@@ -254,3 +254,15 @@ let restaurant = Restaurant()
 let toast = restaurant.makeToast()
 
 eat(toast)
+
+func findAll<T: Equatable>(_ array: [T], _ el: T) -> [Int] {
+    var ocurrences = [Int]()
+    
+    for (idx, item) in array.enumerated() where item == el {
+        ocurrences.append(idx)
+    }
+    
+    return ocurrences
+}
+
+print(findAll([5, 3, 7, 3, 9], 3))
