@@ -55,7 +55,7 @@ struct Stack<Element>: Sequence {
         StackIterator(stack: self)
     }
     
-    mutating func pushAll<S: Sequence>(_ sequence: S) where S.Element == Element {
+    mutating func pushAll<S: Sequence>(_ sequence: S) -> Void where S.Element == Element {
         for item in sequence {
             self.push(item)
         }
@@ -255,14 +255,18 @@ let toast = restaurant.makeToast()
 
 eat(toast)
 
-func findAll<T: Equatable>(_ array: [T], _ el: T) -> [Int] {
-    var ocurrences = [Int]()
+func findAll<T: Equatable, C: Collection>(_ collection: C, _ el: T) -> [C.Index] where C.Element == T {
+    var ocurrences = [C.Index]()
     
-    for (idx, item) in array.enumerated() where item == el {
+    for idx in collection.indices where collection[idx] == el {
         ocurrences.append(idx)
     }
     
     return ocurrences
 }
 
-print(findAll([5, 3, 7, 3, 9], 3))
+let foundIntegers = findAll([5, 3, 7, 3, 9], 3)
+let foundStrings = findAll(["swift", "c", "python", "ruby", "swift", "c++"], "swift")
+
+print(foundIntegers)
+print(foundStrings)
