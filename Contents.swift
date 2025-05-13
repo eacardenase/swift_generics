@@ -255,6 +255,8 @@ let toast = restaurant.makeToast()
 
 eat(toast)
 
+print(blankSpace)
+
 func findAll<T: Equatable, C: Collection>(_ collection: C, _ el: T) -> [C.Index] where C.Element == T {
     var ocurrences = [C.Index]()
     
@@ -270,3 +272,21 @@ let foundStrings = findAll(["swift", "c", "python", "ruby", "swift", "c++"], "sw
 
 print(foundIntegers)
 print(foundStrings)
+
+extension Stack: Equatable where Element: Equatable {
+    static func ==(lhs: Self, rhs: Self) -> Bool {
+        return lhs.items == rhs.items
+    }
+}
+
+let myTasks = Stack(items: ["Clean up"])
+let yourTasks = Stack(items: ["Master Swift"])
+
+myTasks == yourTasks // false
+
+class Pancake { }
+
+let breakfast = Stack(items: [Pancake(), Pancake()])
+let lunch = Stack(items: [Pancake()])
+
+//breakfast == lunch // Error: Pancake does not conform to Equatable
